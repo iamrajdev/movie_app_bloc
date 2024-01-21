@@ -1,3 +1,5 @@
+import 'package:movie_app_bloc/domain/entities/movie.dart';
+
 class MovieModel {
   final int id;
   final String title;
@@ -28,5 +30,15 @@ class MovieModel {
       'overview': overview,
       'poster_path': posterPath,
     };
+  }
+
+  //Convert movie to entity
+  Movie toEntity() {
+    return Movie(
+      id: id,
+      title: title,
+      overview: overview,
+      posterPath: posterPath,
+    );
   }
 }

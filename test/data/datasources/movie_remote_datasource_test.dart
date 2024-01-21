@@ -10,6 +10,8 @@ import 'package:movie_app_bloc/data/datasources/remote/movie_remote_datasource_i
 import 'movie_remote_datasource_test.mocks.dart';
 
 @GenerateMocks([http.Client])
+
+// Main
 void main() {
   late MovieRemoteDataSource dataSource;
   late MockClient mockHttpClient;
