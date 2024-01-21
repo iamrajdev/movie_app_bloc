@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -19,20 +20,22 @@ void main() {
   const String tQuery = 'Lift';
 
   final tMovieList = [
-    Movie(id: 1, title: 'title', overview: 'overview', posterPath: '/image'),
-    Movie(id: 2, title: 'title2', overview: 'overview2', posterPath: '/image')
+    const Movie(
+        id: 1, title: 'title', overview: 'overview', posterPath: '/image'),
+    const Movie(
+        id: 2, title: 'title2', overview: 'overview2', posterPath: '/image')
   ];
 
   test('Should get search movies from the repository', () async {
     //Arrange
     when(mockMovieRepository.searchMovies(tQuery))
-        .thenAnswer((realInvocation) async => tMovieList);
+        .thenAnswer((realInvocation) async => Right(tMovieList));
 
     //Act
     final result = await useCase(tQuery);
 
     //Assert
-    expect(result, tMovieList);
+    expect(result, Right(tMovieList));
     verify(mockMovieRepository.searchMovies(tQuery));
     verifyNoMoreInteractions(mockMovieRepository);
   });

@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -18,20 +19,30 @@ void main() {
   });
 
   final tMovieList = [
-    Movie(id: 1, title: 'title', overview: 'overview', posterPath: '/image'),
-    Movie(id: 2, title: 'title2', overview: 'overview2', posterPath: '/image')
+    const Movie(
+      id: 1,
+      title: 'title',
+      overview: 'overview',
+      posterPath: '/image',
+    ),
+    const Movie(
+      id: 2,
+      title: 'title2',
+      overview: 'overview2',
+      posterPath: '/image',
+    )
   ];
 
   test('Should get popular movies from the repository', () async {
     //Arrange
     when(mockMovieRepository.getPopularMovies())
-        .thenAnswer((_) async => tMovieList);
+        .thenAnswer((_) async => Right(tMovieList));
 
     //Act
     final result = await useCase();
 
     //Assert
-    expect(result, tMovieList);
+    expect(result, Right(tMovieList));
     verify(mockMovieRepository.getPopularMovies());
     verifyNoMoreInteractions(mockMovieRepository);
   });
